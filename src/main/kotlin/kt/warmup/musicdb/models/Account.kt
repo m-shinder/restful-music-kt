@@ -11,6 +11,7 @@ data class Account(
         val type: String,
         var email: String,
         var passwordHash: String,
+        var hashSalt: String,
         var name: String,
 ) {
 
