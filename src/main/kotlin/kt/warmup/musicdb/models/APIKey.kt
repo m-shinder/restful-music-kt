@@ -7,6 +7,7 @@ enum class APIKeyType {
         ANONYMOUS,
         AUTHOR,
         USER,
+        CREATOR,
 }
 @Entity
 @Table(name = "api_keys")
