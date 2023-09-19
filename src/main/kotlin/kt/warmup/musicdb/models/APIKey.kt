@@ -16,7 +16,7 @@ data class APIKey(
         val id: Long = 0,
         val value: String,
         val issuer: Account,
-        val type: String,
+        val type: APIKeyType,
         val timeToUse: Long,
         val validFrom: Timestamp,
         val validTo: Timestamp,
