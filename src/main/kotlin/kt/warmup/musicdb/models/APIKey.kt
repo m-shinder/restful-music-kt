@@ -3,6 +3,11 @@ package kt.warmup.musicdb.models
 import jakarta.persistence.*
 import java.sql.Timestamp
 
+enum class APIKeyType {
+        ANONYMOUS,
+        AUTHOR,
+        USER,
+}
 @Entity
 @Table(name = "api_keys")
 data class APIKey(
