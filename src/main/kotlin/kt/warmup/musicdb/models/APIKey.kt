@@ -16,6 +16,7 @@ data class APIKey(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,
         val value: String,
+        @ManyToOne
         val issuer: Account,
         val type: APIKeyType,
         val timeToUse: Long,
