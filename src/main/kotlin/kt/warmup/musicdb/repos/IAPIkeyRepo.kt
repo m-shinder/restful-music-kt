@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface IAPIkeyRepo: JpaRepository<APIKey, Long> {
+    fun findByValue(value: String): APIKey
 }

@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ITrackRepo: JpaRepository<Track, Long> {
+    fun findByISMN(ismn: String): Track
+    fun findByFilehash(ismn: String): Track
+
 }

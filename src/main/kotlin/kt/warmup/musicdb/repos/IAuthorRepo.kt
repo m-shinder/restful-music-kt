@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface IAuthorRepo : JpaRepository<Author, Long> {
+    fun findByHandle(handle: String): Author
 }
