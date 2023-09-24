@@ -51,20 +51,12 @@ class TrackService(
     }
 
     internal fun modelByFilehash(hash: String): Track {
-        val model = repository.findOne(Example.of(Track(
-                ISMN = "",
-                name = "",
-                filehash = hash,
-        ))).get()
+        val model = repository.findByFilehash(hash)
         return model
     }
 
     internal fun modelByISMN(ismn: String): Track {
-        val model = repository.findOne(Example.of(Track(
-                ISMN = ismn,
-                name = "",
-                filehash = "",
-        ))).get()
+        val model = repository.findByISMN(ismn)
         return model
     }
 

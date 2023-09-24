@@ -36,10 +36,7 @@ class AuthorService(
     fun deleteByHandle(handle: String) = repository.deleteById(modelByHandle(handle).id)
 
     internal fun modelByHandle(handle: String): Author {
-        val model = repository.findOne(Example.of(Author(
-                name = "",
-                handle = handle
-        ), ExampleMatcher.matchingAny() )).get()
+        val model = repository.findByHandle(handle)
         return  model
     }
 
