@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository
 @Repository
 interface IAlbumRepo : JpaRepository<Album, Long> {
     fun findByAuthor(author: Author): Collection<Album>
+
+    fun findByAuthorAndName(author: Author, name: String): Album
+
+    fun deleteByAuthorAndName(author: Author, name: String)
 }
