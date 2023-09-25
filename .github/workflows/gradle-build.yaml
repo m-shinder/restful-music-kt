@@ -30,6 +30,13 @@ jobs:
         arguments: build
     - uses: actions/upload-artifact@v3
       with:
+        name: Plain-Package
+        path: build/libs/*-plain.jar
+    - uses: actions/upload-artifact@v3
+      with:
         name: Package
-        path: build/libs
+        path: |
+          build/libs/*.jar
+          !build/libs/*.jar
+          
 
