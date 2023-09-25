@@ -37,6 +37,6 @@ jobs:
         name: Package
         path: |
           build/libs/*.jar
-          !build/libs/*.jar
+          !build/libs/*-plain.jar
           
 
