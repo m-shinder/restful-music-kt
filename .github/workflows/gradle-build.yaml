@@ -42,6 +42,8 @@ jobs:
   dockerize:
     needs: build
     runs-on: ubuntu-latest
+    defaults:
+      working-directory: ~
     steps:
     - uses: actions/checkout@v4
       with:
