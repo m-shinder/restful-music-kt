@@ -43,7 +43,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      run: cd ~
+    - run: cd ~
     - uses: actions/checkout@v4
       with:
         sparse-checkout: 'Dockerfile'
