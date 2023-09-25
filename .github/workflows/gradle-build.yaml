@@ -67,7 +67,7 @@ jobs:
     - run: pwd
     - run: cd ~
     - run: pwd
-    - run: cp ${{ steps.download.outputs.download-path }} ./
+    - run: cp ${{ steps.download.outputs.download-path }}/* ./
     - run: ls -laR
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
