@@ -49,6 +49,7 @@ jobs:
         sparse-checkout: 'Dockerfile'
     - name: Download package
       uses: actions/download-artifact@v3
+      id: download
       with:
         name: Package
         path: ~/package.jar
@@ -66,6 +67,7 @@ jobs:
     - run: pwd
     - run: cd ~
     - run: pwd
+    - run: cp ${{ steps.download.outputs.download-path }} ./
     - run: ls -laR
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
