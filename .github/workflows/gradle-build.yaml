@@ -46,7 +46,7 @@ jobs:
       with:
         sparse-checkout: 'Dockerfile'
     - name: Download package
-      uses: actions/download-artifatc@v3
+      uses: actions/download-artifact@v3
       with:
         name: Package
         path: ~/package.jar
