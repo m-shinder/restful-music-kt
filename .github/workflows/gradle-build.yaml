@@ -42,9 +42,8 @@ jobs:
   dockerize:
     needs: build
     runs-on: ubuntu-latest
-    defaults:
-      working-directory: ~
     steps:
+      run: cd ~
     - uses: actions/checkout@v4
       with:
         sparse-checkout: 'Dockerfile'
