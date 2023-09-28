@@ -30,12 +30,11 @@ class SecurityConfiguration {
 
     @Bean
     fun userDetailsService(): UserDetailsService {
-        val user: UserDetails = User.withUsername("user")
+        val user = User.withUsername("user")
                 .password(passwordEncoder().encode("password"))
                 .roles("USER")
-                .build()
         // TODO: Actuall user fetching
-        return UserDetailsService { username ->  user}
+        return UserDetailsService { username ->  user.build() }
     }
 
     @Bean
