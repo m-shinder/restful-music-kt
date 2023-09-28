@@ -7,8 +7,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.security.provisioning.InMemoryUserDetailsManager
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.util.matcher.RequestMatcher
 
 
 @EnableWebSecurity
@@ -29,10 +31,15 @@ class SecurityConfiguration {
     @Bean
     fun userDetailsService(): UserDetailsService {
         val user: UserDetails = User.withUsername("user")
-                // password
-                .password("{bcrypt}\$2a\$10\$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG")
+                .password(passwordEncoder().encode("password"))
                 .roles("USER")
                 .build()
-        return InMemoryUserDetailsManager(user)
+        // TODO: Actuall user fetching
+        return UserDetailsService { username ->  user}
+    }
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder {
+        return BCryptPasswordEncoder()
     }
 }
