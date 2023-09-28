@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.util.matcher.AndRequestMatcher
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.springframework.security.web.util.matcher.RequestMatcher
 
 
@@ -22,7 +24,17 @@ class SecurityConfiguration {
         http
                 .csrf {}
                 .authorizeHttpRequests {
-                    it.anyRequest().authenticated()
+                    it.requestMatchers(AntPathRequestMatcher("/api/v1/key/register")).permitAll()
+                    it.requestMatchers(AntPathRequestMatcher("/api/v1/key/register")).permitAll()
+                    it.requestMatchers(AndRequestMatcher(
+                            AntPathRequestMatcher("/api/v1/**"),
+                            RequestMatcher { it.method == "GET" }
+                    )).permitAll()
+                    it.requestMatchers(AndRequestMatcher(
+                            AntPathRequestMatcher("/api/v1/**"),
+                            RequestMatcher { it.method != "GET" }
+                    )).authenticated()
+                    it.anyRequest().denyAll()
                 }
                 .httpBasic {}
         return http.build()
