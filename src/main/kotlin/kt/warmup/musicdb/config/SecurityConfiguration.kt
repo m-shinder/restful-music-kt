@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -22,10 +21,10 @@ class SecurityConfiguration {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
-                .csrf {}
+                // I consider it's safe since all requests authorized by token
+                .csrf {it.disable()}
                 .authorizeHttpRequests {
-                    it.requestMatchers(AntPathRequestMatcher("/api/v1/key/register")).permitAll()
-                    it.requestMatchers(AntPathRequestMatcher("/api/v1/key/register")).permitAll()
+                    it.requestMatchers(AntPathRequestMatcher("/api/v1/key/*")).permitAll()
                     it.requestMatchers(AndRequestMatcher(
                             AntPathRequestMatcher("/api/v1/**"),
                             RequestMatcher { it.method == "GET" }
@@ -34,7 +33,7 @@ class SecurityConfiguration {
                             AntPathRequestMatcher("/api/v1/**"),
                             RequestMatcher { it.method != "GET" }
                     )).authenticated()
-                    it.anyRequest().denyAll()
+                    it.anyRequest().authenticated()
                 }
                 .httpBasic {}
         return http.build()
