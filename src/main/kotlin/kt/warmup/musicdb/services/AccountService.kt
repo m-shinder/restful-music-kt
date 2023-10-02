@@ -25,6 +25,7 @@ class AccountService(
             hashSalt = "NO_SALT",
             name = request.name,
         )
+        repository.save(account)
         return account
     }
 
