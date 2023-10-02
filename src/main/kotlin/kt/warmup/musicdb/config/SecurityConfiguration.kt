@@ -1,11 +1,11 @@
 package kt.warmup.musicdb.config
 
+import kt.warmup.musicdb.services.AccountService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -20,6 +20,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher
 @Configuration
 class SecurityConfiguration(
         val apiAuthFilter: ApiAuthFilter,
+        val accountService: AccountService,
 ) {
 
     @Bean
@@ -48,16 +49,8 @@ class SecurityConfiguration(
     }
 
     @Bean
-    fun userDetailsService(): UserDetailsService {
-        val user = User.withUsername("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER")
-        // TODO: Actuall user fetching
-        return UserDetailsService { username ->  user.build() }
-    }
+    fun userDetailsService(): UserDetailsService = accountService
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 }
