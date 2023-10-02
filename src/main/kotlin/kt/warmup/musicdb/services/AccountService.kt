@@ -5,12 +5,15 @@ import kt.warmup.musicdb.DTO.AccountRegistrationRequest
 import kt.warmup.musicdb.DTO.AuthorizationRequest
 import kt.warmup.musicdb.models.Account
 import kt.warmup.musicdb.repos.IAccountRepo
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 
 @Service
 class AccountService(
         val repository: IAccountRepo,
-) {
+): UserDetailsService {
+
+    override fun loadUserByUsername(username: String) = repository.findByEmail(username)
 
     fun register(request: AccountRegistrationRequest): Account {
         if (repository.existsByEmail(request.email))
