@@ -2,10 +2,8 @@ package kt.warmup.musicdb.services
 
 import kt.warmup.musicdb.DTO.TrackCreationRequest
 import kt.warmup.musicdb.DTO.TrackDTO
-import kt.warmup.musicdb.models.Author
 import kt.warmup.musicdb.models.Track
 import kt.warmup.musicdb.repos.ITrackRepo
-import org.springframework.data.domain.Example
 import org.springframework.stereotype.Service
 
 const val BASE_AUTHOR_URL = "/api/v1/author/"
@@ -29,7 +27,7 @@ class TrackService(
                 name = track.name,
                 filehash = track.filehash,
         )
-        model.author = authors.modelByHandle(track.creatorKey)
+        model.author = authors.modelByHandle(track.authorHandle)
         repository.save(model)
         return model.toDTO()
     }

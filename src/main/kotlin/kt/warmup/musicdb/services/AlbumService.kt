@@ -28,7 +28,7 @@ class AlbumService(
         val model = Album(
                 name = request.name
         )
-        model.author = authors.modelByHandle(request.creatorKey)
+        model.author = authors.modelByHandle(request.authorHandle)
         model.tracks = request.tracks.map{
             tracks.modelByFilehash(it)
         }
