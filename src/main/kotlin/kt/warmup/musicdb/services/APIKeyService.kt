@@ -1,5 +1,6 @@
 package kt.warmup.musicdb.services
 
+import io.jsonwebtoken.Jwts
 import kt.warmup.musicdb.DTO.APIKeyDTO
 import kt.warmup.musicdb.models.APIKey
 import kt.warmup.musicdb.models.APIKeyType
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Example
 import org.springframework.data.domain.ExampleMatcher
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
+import java.security.Key
 import java.sql.Timestamp
 import java.time.Duration
 import java.time.Instant
@@ -18,6 +20,7 @@ import java.time.Instant
 class APIKeyService(
         val repository: IAPIkeyRepo,
 ) {
+    private val jwtSignKey = Jwts.SIG.HS512.key().build()
     fun issueAnonymous(): APIKeyDTO {
         return issue(
                 Account(0,"", "", "", "", ""),
@@ -64,13 +67,22 @@ class APIKeyService(
     }
 
     private fun issue(issuer: Account, type: APIKeyType, timeToUse: Long): APIKey {
+        val iat = Timestamp.from(Instant.now())
+        val eat = Timestamp.from(Instant.now().plus(Duration.ofDays(1)))
+        val jwt = Jwts.builder()
+                .issuedAt(iat)
+                .expiration(eat)
+                .issuer(issuer.name)
+                .signWith(jwtSignKey)
+                .compact()
+
         val key = APIKey(
-                value = "${type}:${issuer.name}:IT_SHOULD_BE_JWT",
+                value = jwt,
                 issuer = issuer,
                 type = type,
                 timeToUse = timeToUse,
-                validFrom = Timestamp.from(Instant.now()),
-                validTo = Timestamp.from(Instant.now().plus(Duration.ofDays(1)))
+                validFrom = iat,
+                validTo = eat
         )
         repository.save(key)
         return key
