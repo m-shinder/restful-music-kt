@@ -20,7 +20,7 @@ data class Account (
 
         override fun getPassword() = passwordHash
 
-        override fun getUsername() = email
+        override fun getUsername() = name
 
         override fun isAccountNonExpired() = true
 

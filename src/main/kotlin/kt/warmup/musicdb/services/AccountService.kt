@@ -13,7 +13,7 @@ class AccountService(
         val repository: IAccountRepo,
 ): UserDetailsService {
 
-    override fun loadUserByUsername(username: String) = repository.findByEmail(username)
+    override fun loadUserByUsername(username: String) = repository.findByName(username)
 
     fun register(request: AccountRegistrationRequest): Account {
         if (repository.existsByEmail(request.email))
