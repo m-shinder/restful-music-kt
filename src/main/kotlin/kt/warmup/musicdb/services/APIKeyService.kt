@@ -18,10 +18,8 @@ class APIKeyService {
         )
     }
 
-    fun issueCreator(creator: Account): String {
-        return issue(
-                creator,
-        )
+    fun issueAccount(issuer: Account): String {
+        return issue(issuer)
     }
 
     fun issuerOf(token: String) = jwtParser.parseSignedClaims(token).payload.issuer

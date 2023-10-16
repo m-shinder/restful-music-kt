@@ -24,16 +24,16 @@ class APIKeyController(
         return ResponseEntity.ok(apiKeyService.issueAnonymous())
     }
 
-    @PostMapping("/creator")
+    @PostMapping("/account")
     fun issueCreator(@RequestBody body: AuthorizationRequest): ResponseEntity<String> {
         return ResponseEntity.ok(
-                apiKeyService.issueCreator(accountService.authorize(body))
+                apiKeyService.issueAccount(accountService.authorize(body))
         )
     }
 
     @PostMapping("/register")
     fun registerAccount(@RequestBody body: AccountRegistrationRequest): ResponseEntity<String> {
         val account = accountService.register(body)
-        return ResponseEntity.ok(apiKeyService.issueCreator(account))
+        return ResponseEntity.ok(apiKeyService.issueAccount(account))
     }
 }
