@@ -37,7 +37,7 @@ class APIKeyService(
         ).toDTO()
     }
 
-    private fun issue(issuer: Account, type: APIKeyType, timeToUse: Long): APIKey {
+    private fun issue(issuer: Account, type: APIKeyType, timeToUse: Long): String {
         val iat = Timestamp.from(Instant.now())
         val eat = Timestamp.from(Instant.now().plus(Duration.ofDays(1)))
         val jwt = Jwts.builder()
@@ -46,22 +46,12 @@ class APIKeyService(
                 .issuer(issuer.name)
                 .signWith(jwtSignKey)
                 .compact()
-
-        val key = APIKey(
-                value = jwt,
-                issuer = issuer,
-                type = type,
-                timeToUse = timeToUse,
-                validFrom = iat,
-                validTo = eat
-        )
-        repository.save(key)
-        return key
+        return jwt
     }
 }
 
-fun APIKey.toDTO() = APIKeyDTO(
-        type = this.type.toString(),
-        value = this.value,
-        validTo = this.validTo,
+fun String.toDTO() = APIKeyDTO(
+        type = "NONE",
+        value = this,
+        validTo = Timestamp.from(Instant.now()),
 )
