@@ -21,20 +21,20 @@ class APIKeyService(
         val repository: IAPIkeyRepo,
 ) {
     private val jwtSignKey = Jwts.SIG.HS512.key().build()
-    fun issueAnonymous(): APIKeyDTO {
+    fun issueAnonymous(): String {
         return issue(
                 Account(0,"", "", "", "", ""),
                 APIKeyType.ANONYMOUS,
                 10
-        ).toDTO()
+        )
     }
 
-    fun issueCreator(creator: Account): APIKeyDTO {
+    fun issueCreator(creator: Account): String {
         return issue(
                 creator,
                 APIKeyType.CREATOR,
                 10
-        ).toDTO()
+        )
     }
 
     private fun issue(issuer: Account, type: APIKeyType, timeToUse: Long): String {
@@ -49,9 +49,3 @@ class APIKeyService(
         return jwt
     }
 }
-
-fun String.toDTO() = APIKeyDTO(
-        type = "NONE",
-        value = this,
-        validTo = Timestamp.from(Instant.now()),
-)
