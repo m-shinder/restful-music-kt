@@ -11,6 +11,8 @@ data class Author (
         var name: String,
         @Column(unique = true)
         var handle: String,
+        @ManyToOne
+        val account: Account
 ) {
         @OneToMany(mappedBy = "author")
         var tracks: List<Track> = listOf()

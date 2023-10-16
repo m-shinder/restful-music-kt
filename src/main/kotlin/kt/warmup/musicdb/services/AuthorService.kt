@@ -24,7 +24,7 @@ class AuthorService(
     }
 
     fun register(author: AuthorRegistrationRequest, account: Account): AuthorDTO {
-        val model = Author(name = author.name, handle = author.handle)
+        val model = Author(name = author.name, handle = author.handle, account = account)
         repository.save(model)
         return model.toDTO()
     }

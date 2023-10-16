@@ -16,6 +16,9 @@ data class Account (
         var hashSalt: String,
         var name: String,
 ): UserDetails {
+        @OneToMany(mappedBy = "account")
+        var associatedAuthors: List<Author> = listOf()
+
         override fun getAuthorities() = mutableListOf<GrantedAuthority>()
 
         override fun getPassword() = passwordHash
@@ -29,5 +32,4 @@ data class Account (
         override fun isCredentialsNonExpired() = true
 
         override fun isEnabled() = true
-
 }
