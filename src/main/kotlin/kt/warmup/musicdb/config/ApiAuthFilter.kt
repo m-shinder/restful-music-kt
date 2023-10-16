@@ -32,8 +32,9 @@ class ApiAuthFilter(
 
         if (authHeader.startsWith("Bearer ")) {
             val token = authHeader.substring(7)
+            val issuer = apiKeyService.issuerOf(token)
 
-            val user = userDetailsService.loadUserByUsername(token)
+            val user = userDetailsService.loadUserByUsername(issuer)
             val auth = UsernamePasswordAuthenticationToken(
                     user,
                     null,
