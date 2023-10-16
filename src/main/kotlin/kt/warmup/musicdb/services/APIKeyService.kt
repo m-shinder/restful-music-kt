@@ -37,35 +37,6 @@ class APIKeyService(
         ).toDTO()
     }
 
-    fun validate(value: String): Boolean {
-        val key = repository.findByValue(value)
-        val valid = isValid(key)
-        if (!valid) disposeByValue(value)
-        return valid
-    }
-
-    fun disposeByValue(value: String) = repository.deleteById(
-            getModelByValue(value).id
-    )
-
-    internal fun getIssuerByValue(value: String) = repository.findByValue(value).issuer
-
-    internal fun getModelByValue(value: String): APIKey {
-        val model = repository.findByValue(value)
-        return  model
-    }
-
-    internal fun isValid(key: APIKey) = !isOutdated(key)
-
-    internal fun isOutdated(key: APIKey) = key.timeToUse <= 0
-                       || key.validFrom > Timestamp.from(Instant.now())
-                       || key.validFrom < Timestamp.from(Instant.now())
-
-    private fun typeOfAPIKey(key: String): APIKeyType {
-        val type = key.substringBefore(':')
-        return APIKeyType.valueOf(type)
-    }
-
     private fun issue(issuer: Account, type: APIKeyType, timeToUse: Long): APIKey {
         val iat = Timestamp.from(Instant.now())
         val eat = Timestamp.from(Instant.now().plus(Duration.ofDays(1)))
