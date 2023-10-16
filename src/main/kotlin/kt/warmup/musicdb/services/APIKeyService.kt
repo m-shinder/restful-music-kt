@@ -14,6 +14,8 @@ class APIKeyService(
         val repository: IAPIkeyRepo,
 ) {
     private val jwtSignKey = Jwts.SIG.HS512.key().build()
+    private val jwtParser = Jwts.parser().verifyWith(jwtSignKey).build()
+
     fun issueAnonymous(): String {
         return issue(
                 Account(0,"", "", "", "", ""),
@@ -27,6 +29,8 @@ class APIKeyService(
                 APIKeyType.CREATOR,
         )
     }
+
+    fun issuerOf(token: String) = jwtParser.parseSignedClaims(token).payload.issuer
 
     private fun issue(issuer: Account, type: APIKeyType): String {
         val iat = Timestamp.from(Instant.now())
