@@ -24,11 +24,11 @@ class ApiAuthFilter(
             request: HttpServletRequest,
             response: HttpServletResponse,
             filterChain: FilterChain) {
-        if (!request.headerNames.toList().contains("Authorization")) {
+        if (!request.headerNames.toList().contains("authorization")) {
             filterChain.doFilter(request, response)
             return
         }
-        val authHeader = request.getHeader("Authorization")
+        val authHeader = request.getHeader("authorization")
 
         if (authHeader.startsWith("Bearer ")) {
             val token = authHeader.substring(7)
