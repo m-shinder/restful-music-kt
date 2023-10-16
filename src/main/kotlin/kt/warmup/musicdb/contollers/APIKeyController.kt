@@ -20,26 +20,20 @@ class APIKeyController(
         val accountService: AccountService,
 ) {
     @PostMapping("/anonymous")
-    fun issueAnonymous(): ResponseEntity<APIKeyDTO> {
+    fun issueAnonymous(): ResponseEntity<String> {
         return ResponseEntity.ok(apiKeyService.issueAnonymous())
     }
 
     @PostMapping("/creator")
-    fun issueCreator(@RequestBody body: AuthorizationRequest): ResponseEntity<APIKeyDTO> {
+    fun issueCreator(@RequestBody body: AuthorizationRequest): ResponseEntity<String> {
         return ResponseEntity.ok(
                 apiKeyService.issueCreator(accountService.authorize(body))
         )
     }
 
     @PostMapping("/register")
-    fun registerAccount(@RequestBody body: AccountRegistrationRequest): ResponseEntity<APIKeyDTO> {
+    fun registerAccount(@RequestBody body: AccountRegistrationRequest): ResponseEntity<String> {
         val account = accountService.register(body)
         return ResponseEntity.ok(apiKeyService.issueCreator(account))
-    }
-
-    @DeleteMapping("/{key}")
-    fun dispose(@PathVariable key: String): ResponseEntity<Unit> {
-        apiKeyService.disposeByValue(key)
-        return ResponseEntity.noContent().build()
     }
 }
