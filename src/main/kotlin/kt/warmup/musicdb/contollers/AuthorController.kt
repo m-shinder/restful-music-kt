@@ -2,8 +2,11 @@ package kt.warmup.musicdb.contollers
 
 import kt.warmup.musicdb.DTO.AuthorDTO
 import kt.warmup.musicdb.DTO.AuthorRegistrationRequest
+import kt.warmup.musicdb.models.Account
 import kt.warmup.musicdb.services.AuthorService
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -22,12 +25,14 @@ class AuthorController(
     }
 
     @PostMapping
-    fun initRegistration(@RequestBody request: AuthorRegistrationRequest): ResponseEntity<AuthorDTO> {
-        return ResponseEntity.ok(service.register(request))
+    fun register(
+            @RequestBody request: AuthorRegistrationRequest,
+            auth: Authentication): ResponseEntity<AuthorDTO> {
+        return ResponseEntity.ok(service.register(request, auth.principal as Account))
     }
 
     @DeleteMapping("/{handle}")
-    fun deleteById(@PathVariable handle: String): ResponseEntity<Unit> {
+    fun deleteById(@PathVariable handle: String, auth: Authentication): ResponseEntity<Unit> {
         service.deleteByHandle(handle)
         return ResponseEntity.noContent().build()
     }

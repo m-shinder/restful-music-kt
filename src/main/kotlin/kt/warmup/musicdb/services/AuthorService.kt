@@ -2,6 +2,7 @@ package kt.warmup.musicdb.services
 
 import kt.warmup.musicdb.DTO.AuthorDTO
 import kt.warmup.musicdb.DTO.AuthorRegistrationRequest
+import kt.warmup.musicdb.models.Account
 import kt.warmup.musicdb.models.Author
 import kt.warmup.musicdb.repos.IAuthorRepo
 import org.springframework.data.domain.Example
@@ -22,7 +23,7 @@ class AuthorService(
         return null;
     }
 
-    fun register(author: AuthorRegistrationRequest): AuthorDTO {
+    fun register(author: AuthorRegistrationRequest, account: Account): AuthorDTO {
         val model = Author(name = author.name, handle = author.handle)
         repository.save(model)
         return model.toDTO()
