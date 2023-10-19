@@ -1,7 +1,7 @@
 package kt.warmup.musicdb.models
 
 import jakarta.persistence.*
-import org.springframework.security.core.GrantedAuthority
+import kt.warmup.musicdb.MusicdbGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
@@ -16,10 +16,11 @@ data class Account (
         var hashSalt: String,
         var name: String,
 ): UserDetails {
-        @OneToMany(mappedBy = "account")
+        @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
         var associatedAuthors: List<Author> = listOf()
 
-        override fun getAuthorities() = mutableListOf<GrantedAuthority>()
+        override fun getAuthorities() = associatedAuthors.map { MusicdbGrantedAuthority.allOver(it.handle) }
+                .fold(listOf<MusicdbGrantedAuthority>()) { acc, authorities -> acc + authorities }
 
         override fun getPassword() = passwordHash
 
