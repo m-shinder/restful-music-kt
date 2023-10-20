@@ -3,6 +3,7 @@ package kt.warmup.musicdb.config
 import kt.warmup.musicdb.services.AccountService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -18,6 +19,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher
 
 @EnableWebSecurity
 @Configuration
+@EnableMethodSecurity
 class SecurityConfiguration(
         val apiAuthFilter: ApiAuthFilter,
         val accountService: AccountService,
