@@ -1,4 +1,4 @@
-package kt.warmup.musicdb.DTO
+package kt.warmup.musicdb.DTO.request
 
 data class AuthorizationRequest(
         val email: String,

@@ -1,6 +1,6 @@
 package kt.warmup.musicdb.contollers
 
-import kt.warmup.musicdb.DTO.TrackCreationRequest
+import kt.warmup.musicdb.DTO.request.create.TrackCreationRequest
 import kt.warmup.musicdb.DTO.response.TrackDTO
 import kt.warmup.musicdb.services.TrackService
 import org.springframework.http.ResponseEntity

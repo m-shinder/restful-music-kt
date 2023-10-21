@@ -1,7 +1,7 @@
 package kt.warmup.musicdb.services
 
-import kt.warmup.musicdb.DTO.AccountRegistrationRequest
-import kt.warmup.musicdb.DTO.AuthorizationRequest
+import kt.warmup.musicdb.DTO.request.create.AccountRegistrationRequest
+import kt.warmup.musicdb.DTO.request.AuthorizationRequest
 import kt.warmup.musicdb.models.Account
 import kt.warmup.musicdb.repos.IAccountRepo
 import org.springframework.security.core.userdetails.UserDetailsService

@@ -1,4 +1,4 @@
-package kt.warmup.musicdb.DTO
+package kt.warmup.musicdb.DTO.request.create
 
 data class AccountRegistrationRequest(
         val type: String,

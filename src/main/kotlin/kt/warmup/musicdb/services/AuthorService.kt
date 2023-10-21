@@ -1,7 +1,7 @@
 package kt.warmup.musicdb.services
 
 import kt.warmup.musicdb.DTO.response.AuthorDTO
-import kt.warmup.musicdb.DTO.AuthorRegistrationRequest
+import kt.warmup.musicdb.DTO.request.create.AuthorRegistrationRequest
 import kt.warmup.musicdb.models.Account
 import kt.warmup.musicdb.models.Author
 import kt.warmup.musicdb.repos.IAuthorRepo

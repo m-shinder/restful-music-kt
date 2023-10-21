@@ -1,6 +1,6 @@
 package kt.warmup.musicdb.services
 
-import kt.warmup.musicdb.DTO.AlbumCreationRequest
+import kt.warmup.musicdb.DTO.request.create.AlbumCreationRequest
 import kt.warmup.musicdb.DTO.response.AlbumDTO
 import kt.warmup.musicdb.models.Album
 import kt.warmup.musicdb.repos.IAlbumRepo

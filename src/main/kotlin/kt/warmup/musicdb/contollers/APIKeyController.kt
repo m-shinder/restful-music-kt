@@ -1,7 +1,7 @@
 package kt.warmup.musicdb.contollers
 
-import kt.warmup.musicdb.DTO.AccountRegistrationRequest
-import kt.warmup.musicdb.DTO.AuthorizationRequest
+import kt.warmup.musicdb.DTO.request.create.AccountRegistrationRequest
+import kt.warmup.musicdb.DTO.request.AuthorizationRequest
 import kt.warmup.musicdb.services.APIKeyService
 import kt.warmup.musicdb.services.AccountService
 import org.springframework.http.ResponseEntity

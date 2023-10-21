@@ -1,4 +1,4 @@
-package kt.warmup.musicdb.DTO
+package kt.warmup.musicdb.DTO.request.create
 
 import kt.warmup.musicdb.DTO.response.LyricLineDTO
 
