@@ -5,6 +5,8 @@ import kt.warmup.musicdb.DTO.AuthorRegistrationRequest
 import kt.warmup.musicdb.models.Account
 import kt.warmup.musicdb.services.AuthorService
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PostAuthorize
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
@@ -32,6 +34,7 @@ class AuthorController(
     }
 
     @DeleteMapping("/{handle}")
+    @PreAuthorize("hasAuthority('DELETE_OVER_' + #handle)")
     fun deleteById(@PathVariable handle: String, auth: Authentication): ResponseEntity<Unit> {
         service.deleteByHandle(handle)
         return ResponseEntity.noContent().build()
