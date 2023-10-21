@@ -2,6 +2,7 @@ package kt.warmup.musicdb.contollers
 
 import kt.warmup.musicdb.DTO.response.AuthorDTO
 import kt.warmup.musicdb.DTO.request.create.AuthorRegistrationRequest
+import kt.warmup.musicdb.DTO.request.modify.AuthorModifyRequest
 import kt.warmup.musicdb.models.Account
 import kt.warmup.musicdb.services.AuthorService
 import org.springframework.http.ResponseEntity
@@ -29,6 +30,13 @@ class AuthorController(
             @RequestBody request: AuthorRegistrationRequest,
             auth: Authentication): ResponseEntity<AuthorDTO> {
         return ResponseEntity.ok(service.register(request, auth.principal as Account))
+    }
+
+    @PatchMapping("/{handle}")
+    @PreAuthorize("hasAuthority('UPDATE_OVER_' + #handle)")
+    fun update(@PathVariable handle: String,
+               @RequestBody author: AuthorModifyRequest): ResponseEntity<AuthorDTO> {
+        return ResponseEntity.ok(service.updateByHandle(handle, author))
     }
 
     @DeleteMapping("/{handle}")
