@@ -1,7 +1,6 @@
-package kt.warmup.musicdb.DTO
+package kt.warmup.musicdb.DTO.response
 
-import kt.warmup.musicdb.models.Album
-import kt.warmup.musicdb.models.Track
+import kt.warmup.musicdb.DTO.response.LyricLineDTO
 
 data class TrackDTO(
         val ISMN: String,

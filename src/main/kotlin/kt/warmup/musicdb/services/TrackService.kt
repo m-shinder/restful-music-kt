@@ -1,7 +1,7 @@
 package kt.warmup.musicdb.services
 
 import kt.warmup.musicdb.DTO.TrackCreationRequest
-import kt.warmup.musicdb.DTO.TrackDTO
+import kt.warmup.musicdb.DTO.response.TrackDTO
 import kt.warmup.musicdb.models.Track
 import kt.warmup.musicdb.repos.ITrackRepo
 import org.springframework.stereotype.Service

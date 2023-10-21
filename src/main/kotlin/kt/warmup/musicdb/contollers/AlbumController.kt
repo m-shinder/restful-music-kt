@@ -1,7 +1,7 @@
 package kt.warmup.musicdb.contollers
 
 import kt.warmup.musicdb.DTO.AlbumCreationRequest
-import kt.warmup.musicdb.DTO.AlbumDTO
+import kt.warmup.musicdb.DTO.response.AlbumDTO
 import kt.warmup.musicdb.services.AlbumService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

@@ -1,4 +1,4 @@
-package kt.warmup.musicdb.DTO
+package kt.warmup.musicdb.DTO.response
 
 data class AlbumDTO(
         val name: String,

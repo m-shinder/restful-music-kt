@@ -1,5 +1,7 @@
 package kt.warmup.musicdb.DTO
 
+import kt.warmup.musicdb.DTO.response.LyricLineDTO
+
 data class TrackCreationRequest(
         val authorHandle: String,
         val name: String,

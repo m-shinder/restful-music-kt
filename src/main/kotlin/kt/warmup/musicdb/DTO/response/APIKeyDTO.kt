@@ -1,4 +1,4 @@
-package kt.warmup.musicdb.DTO
+package kt.warmup.musicdb.DTO.response
 
 import java.sql.Timestamp
 

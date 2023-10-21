@@ -1,10 +1,8 @@
 package kt.warmup.musicdb.contollers
 
 import kt.warmup.musicdb.DTO.TrackCreationRequest
-import kt.warmup.musicdb.DTO.TrackDTO
+import kt.warmup.musicdb.DTO.response.TrackDTO
 import kt.warmup.musicdb.services.TrackService
-import org.springframework.http.HttpStatus
-import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 

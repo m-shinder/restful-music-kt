@@ -1,12 +1,10 @@
 package kt.warmup.musicdb.services
 
-import kt.warmup.musicdb.DTO.AuthorDTO
+import kt.warmup.musicdb.DTO.response.AuthorDTO
 import kt.warmup.musicdb.DTO.AuthorRegistrationRequest
 import kt.warmup.musicdb.models.Account
 import kt.warmup.musicdb.models.Author
 import kt.warmup.musicdb.repos.IAuthorRepo
-import org.springframework.data.domain.Example
-import org.springframework.data.domain.ExampleMatcher
 import org.springframework.stereotype.Service
 
 @Service

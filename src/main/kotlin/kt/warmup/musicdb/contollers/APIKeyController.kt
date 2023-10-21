@@ -1,13 +1,10 @@
 package kt.warmup.musicdb.contollers
 
-import kt.warmup.musicdb.DTO.APIKeyDTO
 import kt.warmup.musicdb.DTO.AccountRegistrationRequest
 import kt.warmup.musicdb.DTO.AuthorizationRequest
 import kt.warmup.musicdb.services.APIKeyService
 import kt.warmup.musicdb.services.AccountService
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
