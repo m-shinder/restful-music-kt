@@ -4,6 +4,7 @@ import kt.warmup.musicdb.DTO.request.create.AlbumCreationRequest
 import kt.warmup.musicdb.DTO.response.AlbumDTO
 import kt.warmup.musicdb.services.AlbumService
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -29,6 +30,7 @@ class AlbumController(
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('CREATE_OVER_' + #request.authorHandle)")
     fun create(@RequestBody request: AlbumCreationRequest): ResponseEntity<AlbumDTO> {
         return ResponseEntity.ok(
                 service.create(request)
@@ -36,6 +38,7 @@ class AlbumController(
     }
 
     @DeleteMapping("/{handle}/{name}")
+    @PreAuthorize("hasAuthority('DELETE_OVER_' + #handle)")
     fun deleteByAuthorAndName(@PathVariable handle: String, @PathVariable name: String) {
         service.deleteByAuthorAndName(handle, name)
     }
