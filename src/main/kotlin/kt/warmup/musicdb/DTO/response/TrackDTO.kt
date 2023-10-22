@@ -8,6 +8,7 @@ data class TrackDTO(
         val filehash: String,
         val authorName: String,
         val authorURL: String,
+        val authorHandle: String,
         val albums: Collection<String>,
         val lyric: List<LyricLineDTO>?
 )

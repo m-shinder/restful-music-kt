@@ -70,6 +70,7 @@ fun Track.toDTO(): TrackDTO {
                 filehash = this.filehash,
                 authorName = this.author.name,
                 authorURL = BASE_AUTHOR_URL + this.author.handle,
+                authorHandle = this.author.handle,
                 albums = this.albums.map { it.name },
                 lyric = null,
     )
