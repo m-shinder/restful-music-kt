@@ -1,6 +1,7 @@
 package kt.warmup.musicdb.contollers
 
 import kt.warmup.musicdb.DTO.request.create.AlbumCreationRequest
+import kt.warmup.musicdb.DTO.request.modify.AlbumModifyRequest
 import kt.warmup.musicdb.DTO.response.AlbumDTO
 import kt.warmup.musicdb.services.AlbumService
 import org.springframework.http.ResponseEntity
@@ -35,6 +36,14 @@ class AlbumController(
         return ResponseEntity.ok(
                 service.create(request)
         )
+    }
+
+    @PatchMapping("/{handle}/{name}")
+    @PreAuthorize("hasAuthority('UPDATE_OVER_' + #handle)")
+    fun update(@PathVariable handle: String,
+               @PathVariable name: String,
+               @RequestBody request: AlbumModifyRequest): ResponseEntity<AlbumDTO> {
+        return ResponseEntity.ok(service.updateByAuthorAndName(handle, name, request))
     }
 
     @DeleteMapping("/{handle}/{name}")

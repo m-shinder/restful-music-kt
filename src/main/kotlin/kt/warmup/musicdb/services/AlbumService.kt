@@ -1,6 +1,7 @@
 package kt.warmup.musicdb.services
 
 import kt.warmup.musicdb.DTO.request.create.AlbumCreationRequest
+import kt.warmup.musicdb.DTO.request.modify.AlbumModifyRequest
 import kt.warmup.musicdb.DTO.response.AlbumDTO
 import kt.warmup.musicdb.models.Album
 import kt.warmup.musicdb.repos.IAlbumRepo
@@ -36,12 +37,22 @@ class AlbumService(
         return model.toDTO()
     }
 
+    fun updateByAuthorAndName(handle: String, name: String, album: AlbumModifyRequest): AlbumDTO {
+        val model = repository.findByAuthorAndName(authors.modelByHandle(handle), name)
+
+        return repository.save(update(model, album)).toDTO()
+    }
+
     fun deleteByAuthorAndName(handle: String, name: String) {
         return repository.deleteByAuthorAndName(authors.modelByHandle(handle), name)
     }
-    // TODO:
-    // fun update()
 
+    internal fun update(model: Album, album: AlbumModifyRequest): Album {
+        if (album.authorHandle != null) model.author = authors.modelByHandle(album.authorHandle)
+        if (album.tracks != null) model.tracks = album.tracks.map { tracks.modelByFilehash(it) }
+
+        return model
+    }
 
     internal fun getById(id: Long) = repository.getReferenceById(id)
 
