@@ -4,6 +4,7 @@ import kt.warmup.musicdb.DTO.request.create.TrackCreationRequest
 import kt.warmup.musicdb.DTO.response.TrackDTO
 import kt.warmup.musicdb.services.TrackService
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -24,6 +25,7 @@ class TrackController(
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('CREATE_OVER_' + #body.authorHandle)")
     fun createFromBody(@RequestBody body: TrackCreationRequest): ResponseEntity<TrackDTO> {
         return ResponseEntity.ok(service.create(body))
     }
@@ -35,6 +37,7 @@ class TrackController(
     }
 
     @DeleteMapping("/{hash}")
+    @PreAuthorize("hasAuthority('DELETE_OVER_' + @trackService.getByFilehash(#hash).authorHandle)")
     fun deleteById(@PathVariable hash: String): ResponseEntity<Unit> {
         service.deleteByHash(hash)
         return ResponseEntity.noContent().build()
