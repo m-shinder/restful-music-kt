@@ -1,6 +1,7 @@
 package kt.warmup.musicdb.contollers
 
 import kt.warmup.musicdb.DTO.request.create.TrackCreationRequest
+import kt.warmup.musicdb.DTO.request.modify.TrackModifyRequest
 import kt.warmup.musicdb.DTO.response.TrackDTO
 import kt.warmup.musicdb.services.TrackService
 import org.springframework.http.ResponseEntity
@@ -30,9 +31,9 @@ class TrackController(
         return ResponseEntity.ok(service.create(body))
     }
 
-    // XXX: Put does not see req.body in any chance
-    @PostMapping("/{hash}")
-    fun updateOrCreate(@PathVariable hash: String, @RequestBody body: TrackDTO): ResponseEntity<TrackDTO> {
+    @PatchMapping("/{hash}")
+    @PreAuthorize("hasAuthority('UPDATE_OVER_' + @trackService.getByFilehash(#hash).authorHandle)")
+    fun update(@PathVariable hash: String, @RequestBody body: TrackModifyRequest): ResponseEntity<TrackDTO> {
         return ResponseEntity.ok(service.updateByFilehash(hash, body))
     }
 

@@ -1,6 +1,7 @@
 package kt.warmup.musicdb.services
 
 import kt.warmup.musicdb.DTO.request.create.TrackCreationRequest
+import kt.warmup.musicdb.DTO.request.modify.TrackModifyRequest
 import kt.warmup.musicdb.DTO.response.TrackDTO
 import kt.warmup.musicdb.models.Track
 import kt.warmup.musicdb.repos.ITrackRepo
@@ -32,20 +33,26 @@ class TrackService(
         return model.toDTO()
     }
 
-    fun updateByFilehash(hash: String, track: TrackDTO): TrackDTO {
+    fun updateByFilehash(hash: String, track: TrackModifyRequest): TrackDTO {
         val old = modelByFilehash(hash)
-        old.name = track.name
-        repository.save(old)
-        return old.toDTO()
+
+        return repository.save(update(old, track)).toDTO()
     }
 
     fun deleteByHash(hash: String) = repository.deleteById(modelByFilehash(hash).id)
 
-    internal fun updateById(id: Long, track: TrackDTO): TrackDTO {
+    internal fun updateById(id: Long, track: TrackModifyRequest): TrackDTO {
         val old = repository.getReferenceById(id)
-        old.name = track.name
-        repository.save(old)
-        return old.toDTO()
+
+        return repository.save(update(old, track)).toDTO()
+    }
+
+    internal fun update(model: Track, track: TrackModifyRequest): Track {
+        if (track.name != null) model.name = track.name
+        if (track.filehash != null) model.filehash = track.filehash
+        // if (track.lyric != null) TODO: Update when LyricsService is ready
+
+        return model
     }
 
     internal fun modelByFilehash(hash: String): Track {
