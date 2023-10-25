@@ -54,7 +54,6 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: ${{ 'ghcr.io' }}/${{ github.repository }}
-    - run: cp ${{ steps.download.outputs.download-path }}/*.jar ./package.jar
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
