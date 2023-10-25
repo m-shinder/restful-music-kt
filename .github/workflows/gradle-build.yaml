@@ -13,9 +13,11 @@ on:
     branches: [ "master" ]
 permissions:
   contents: read
+  packages: write
 
 jobs:
-  build:
+  build_and_dockerize:
+    ### Build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -38,24 +40,9 @@ jobs:
         path: |
           build/libs/*.jar
           !build/libs/*-plain.jar
-          
-  dockerize:
-    permissions:
-      contents: read
-      packages: write
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - run: cd ~
-    - uses: actions/checkout@v4
-      with:
-        sparse-checkout: 'Dockerfile'
-    - name: Download package
-      uses: actions/download-artifact@v3
-      id: download
-      with:
-        name: Package
-        path: ~/Package
+    ### Dockerize
+    - name: Extract version
+      run: echo "PACKAGE_VERSION=`gradle properties | grep '^version:' | cut -d' ' -f2`" >> $GITHUB_ENV
     - name: Log in to the Container registry
       uses: docker/login-action@v3
       with:
@@ -72,7 +59,8 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
+        build-args:
+        - version: ${{ env.PACKAGE_VERSION }}
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-
